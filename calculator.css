@@ -1,37 +1,25 @@
+body {
+    background-color: black;
+}
 main {
     background-color: rgb(44,44,44);
     padding: 10px;
-    width: 250px;
+    width: 300px;
     border-radius: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-span {
+button {
     background-color: rgb(56, 56, 56);
-    padding: 5px 20px;
-    margin: 2px;
+    padding: 10px 30px;
     border-radius: 50px;
-    font-size: 30px;
+    border: none;
+    margin: 2px;
+    font-size: 20px;
     color: aliceblue;
-}
-
-.one span {
-    padding: 5px 12px;
-}
-
-#zero {
-    padding: 5px 50px
 }
 
 .symbols {
     background-color: rgb(255, 149, 0);
-}
-
-#minus {
-    padding: 5px 27px;
-}
-
-#plus {
-    padding: 5px 23px
 }
 
 .symbols:hover {
@@ -48,30 +36,9 @@ span {
     color: rgb(134, 134, 134);
 }
 
-span:hover {
+button:hover {
     background-color: white;
     color: black;
-}
-
-span#dot {
-    padding: 5px 27px;
-}
-
-span#equals {
-    padding: 5px 21px;
-}
-
-span#multi {
-    padding: 5px 25px;
-}
-
-span#reset {
-    padding: 5px 8px;
-    
-}
-
-span#divide {
-    padding: 5px 28.5px;
 }
 
 #display {
@@ -83,4 +50,43 @@ span#divide {
     color: aliceblue;
     text-align: right;
     vertical-align: bottom;
+    border: none;
+}
+
+.one span {
+    padding: 10px 12px;
+}
+
+#zero {
+    padding: 10px 75px
+}
+
+#minus {
+    padding: 10px 27px;
+}
+
+#plus {
+    padding: 10px 23px
+}
+
+#dot {
+    padding: 10px 27px;
+}
+
+
+#equals {
+    padding: 10px 21px;
+}
+
+#multi {
+    padding: 10px 25px;
+}
+
+#reset {
+    padding: 10px 8px;
+    
+}
+
+#divide {
+    padding: 10px 28.5px;
 }
