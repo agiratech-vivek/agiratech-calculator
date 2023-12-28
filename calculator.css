@@ -7,10 +7,20 @@ main {
     width: 300px;
     border-radius: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    display: flex;
+    font-weight: bold;
+    flex-direction: column;
 }
+
+.input-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 20px auto 10px auto;
+}
+
 button {
     background-color: rgb(56, 56, 56);
-    padding: 10px 30px;
+    padding: 20px;
     border-radius: 50px;
     border: none;
     margin: 2px;
@@ -41,7 +51,7 @@ button:hover {
     color: black;
 }
 
-#display {
+main input{
     width: 96%;
     height: 86px;
     border-radius: 20px;
@@ -53,40 +63,6 @@ button:hover {
     border: none;
 }
 
-.one span {
-    padding: 10px 12px;
-}
-
-#zero {
-    padding: 10px 75px
-}
-
-#minus {
-    padding: 10px 27px;
-}
-
-#plus {
-    padding: 10px 23px
-}
-
-#dot {
-    padding: 10px 27px;
-}
-
-
-#equals {
-    padding: 10px 21px;
-}
-
-#multi {
-    padding: 10px 25px;
-}
-
-#reset {
-    padding: 10px 10px;
-    
-}
-
-#divide {
-    padding: 10px 28.5px;
+.zero {
+    grid-column: 1 / span 2;
 }
