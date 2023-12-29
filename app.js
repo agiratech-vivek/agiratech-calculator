@@ -12,6 +12,7 @@ var symbolStack = [];
 var postfixExpressionList = [];
 
 function calculation(event) {
+    console.log(event.keyCode);
   mouseClickEvent(event);
   insertIntopostfixExpressionList(event);
 }
@@ -25,7 +26,8 @@ function displayInput(nextInput) {
 function insertIntopostfixExpressionList(event) {
   var currentValueLength = inputArea.value.length;
   var lastValue = inputArea.value.charAt(currentValueLength - 1);
-  if (lastValue < "0" || lastValue > "9") {
+  console.log(lastValue);
+  if ((lastValue < "0" || lastValue > "9") && lastValue != '.') {
     postfixExpressionList.push(
       inputArea.value.substring(lastCharacterIndex - 1, currentValueLength - 1)
     );
@@ -92,7 +94,7 @@ function convertToPostfixExpression(lastValue) {
       (lastValue === "+" || lastValue === "-")) ||
       ((symbolStack[symbolStack.length - 1] === "/" ||
         symbolStack[symbolStack.length - 1] === "*") &&
-        (lastValue === "+" ||
+        (lastValue === "+" || 
           lastValue === "-" ||
           lastValue === "/" ||
           lastValue === "*")))
@@ -115,6 +117,6 @@ function resetState() {
   postfixExpressionList = [];
   numberStack = [];
   displayArea.value = "";
-  inputArea.value = "";
+  inputArea.value = 0;
   console.log();
 }
