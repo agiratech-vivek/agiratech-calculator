@@ -8,14 +8,18 @@ main {
     border-radius: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     display: flex;
-    font-weight: bold;
     flex-direction: column;
+}
+
+input {
+    outline-width: 0;
 }
 
 .input-buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     margin: 20px auto 10px auto;
+    font-weight: bold;
 }
 
 button {
@@ -26,6 +30,15 @@ button {
     margin: 2px;
     font-size: 20px;
     color: aliceblue;
+}
+
+#backspace {
+    font-size: 15px;
+}
+
+#backspace:hover {
+    background-color: rgb(239, 83, 80);
+    color: black;
 }
 
 .symbols {
@@ -39,6 +52,7 @@ button {
 
 .extra-symbol{
     background-color: rgb(134, 134, 134);
+    font-size: 15px;
 }
 
 .extra-symbol:hover {

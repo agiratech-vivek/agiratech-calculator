@@ -1,15 +1,15 @@
+const startTime = performance.now();
 const displayArea = document.getElementById("display");
 
 const inputArea = document.getElementById("input");
-inputArea.addEventListener("input", calculation);
+inputArea.addEventListener("keydown", calculation);
 
 const clickEvent = document.querySelector(".input-buttons");
 clickEvent.addEventListener("click", calculation);
 
-
-var lastCharacterIndex = 1; // to track next index after arithmetic symbol
-var symbolStack = [];   // to store the symbols which is to be put in postfixExpressionList
-var postfixExpressionList = []; // to store postfix expression of incoming infix expression
+let lastCharacterIndex = 1; // track next index after arithmetic symbol
+let symbolStack = []; // store the symbols which is to be put in postfixExpressionList
+let postfixExpressionList = []; // store postfix expression of incoming infix expression
 
 function calculation(event) {
   mouseClickEvent(event); // checking mouse event for reset and numbers
@@ -18,43 +18,49 @@ function calculation(event) {
 
 // updating display area if user inputs from mouse click
 function displayInput(nextInput) {
-  inputArea.value += nextInput;
+  if (inputArea.value == "") inputArea.value = nextInput;
+  else inputArea.value += nextInput;
   console.log(inputArea.value);
 }
 
 function insertIntopostfixExpressionList(event) {
-  var currentValueLength = inputArea.value.length;
-  var lastValue = inputArea.value.charAt(currentValueLength - 1);
-  if ((lastValue < "0" || lastValue > "9") && lastValue != '.') { // to be implemented when user inputs arithmetic operator
+  let currentValueLength = inputArea.value.length;
+  let lastValue = inputArea.value.charAt(currentValueLength - 1);
+  if ((lastValue < "0" || lastValue > "9") && lastValue != ".") {
+    // to be implemented when user inputs arithmetic operator
     postfixExpressionList.push(
-  inputArea.value.substring(lastCharacterIndex - 1, currentValueLength - 1) // taking substring from lastCharacterIndex to currentIndex-1 and storing in postfixExpressionList
+      inputArea.value.substring(lastCharacterIndex - 1, currentValueLength - 1) // taking substring from lastCharacterIndex to currentIndex-1 and storing in postfixExpressionList
     );
     lastCharacterIndex = currentValueLength + 1; // updating the lastCharacterIndex to currentValueIndex + 1
     symbolToPostfixExpressionList(lastValue); // to insert the arithmetic operators into postfixExpressionList
-  } else if (event.target.id == "equals") { // checking if user wants the result
+  } else if (event.target.id == "equals") {
+    // checking if user wants the result
     postfixExpressionList.push(
       inputArea.value.substring(lastCharacterIndex - 1, currentValueLength) // inserting last remaining number to postfixExpressionList
     );
     emptySymbolStack(); // inserting last remaing operators into postfixExpressionList
-    var result = performCalculations(); // calculating the result
+    let result = performCalculations(); // calculating the result
     console.log(result);
     if (isNaN(result)) result = "Malformed expression";
     displayArea.value = result;
+    const endTime = performance.now;
+    console.log(endTime - startTime);
   }
 }
 
 function performCalculations() {
-  var numberStack = []; // to store the numbers for calculation
-  while (postfixExpressionList.length > 0) { // looping through the postFixExpressionList to check operators and calculate the sum
-    var currentElement = postfixExpressionList.shift();
+  let numberStack = []; // to store the numbers for calculation
+  while (postfixExpressionList.length > 0) {
+    // looping through the postFixExpressionList to check operators and calculate the sum
+    let currentElement = postfixExpressionList.shift();
     if (
       currentElement == "+" ||
       currentElement == "-" ||
       currentElement == "*" ||
       currentElement == "/"
     ) {
-      var secondNumber = parseFloat(numberStack.pop());
-      var firstNumber = parseFloat(numberStack.pop());
+      let secondNumber = parseFloat(numberStack.pop());
+      let firstNumber = parseFloat(numberStack.pop());
       if (currentElement == "+") numberStack.push(firstNumber + secondNumber);
       else if (currentElement == "-")
         numberStack.push(firstNumber - secondNumber);
@@ -70,7 +76,7 @@ function performCalculations() {
 }
 
 function mouseClickEvent(event) {
-  var buttonValue = event.target.id;
+  let buttonValue = event.target.id;
   if (
     event.target.tagName === "BUTTON" &&
     buttonValue != "reset" &&
@@ -84,19 +90,20 @@ function mouseClickEvent(event) {
 }
 
 function symbolToPostfixExpressionList(lastValue) {
-  while ( // looping while checking the precedence of the operators and appending in postfixExpressionList
+  while (
+    // looping while checking the precedence of the operators and appending in postfixExpressionList
     symbolStack.length > 0 &&
     (((symbolStack[symbolStack.length - 1] === "+" ||
       symbolStack[symbolStack.length - 1] === "-") &&
       (lastValue === "+" || lastValue === "-")) ||
       ((symbolStack[symbolStack.length - 1] === "/" ||
         symbolStack[symbolStack.length - 1] === "*") &&
-        (lastValue === "+" || 
+        (lastValue === "+" ||
           lastValue === "-" ||
           lastValue === "/" ||
           lastValue === "*")))
   ) {
-    var poppedValue = symbolStack.pop();
+    let poppedValue = symbolStack.pop();
     postfixExpressionList.push(poppedValue);
   }
   symbolStack.push(lastValue);
@@ -106,6 +113,7 @@ function emptySymbolStack() {
   while (symbolStack.length > 0) {
     postfixExpressionList.push(symbolStack.pop());
   }
+  console.log(postfixExpressionList);
 }
 
 function resetState() {
@@ -114,5 +122,5 @@ function resetState() {
   postfixExpressionList = [];
   numberStack = [];
   displayArea.value = "";
-  inputArea.value = 0;
+  inputArea.value = "";
 }
