@@ -37,8 +37,10 @@ function infixToPostfix(){
     let symbolStack = [];
     for(let i = 0; i< infixExpression.length; i++){
         let currentElement = infixExpression.charAt(i);
+        let operatorString = "^/*+-";
         let indexOfCurrentElement = i;
-        if("^/*+-".includes(currentElement)){
+        if(i > 0 && !operatorString.includes(infixExpression.charAt(i-1)) && operatorString.includes(currentElement)){
+            console.log(i);
             postfixExpressionList.push(infixExpression.substring(lastCharacterIndex, indexOfCurrentElement));
             lastCharacterIndex = indexOfCurrentElement + 1;
             insertSymbolIntoPostfixExpressionList(postfixExpressionList, symbolStack, currentElement);
@@ -48,7 +50,9 @@ function infixToPostfix(){
         }
     }
     console.log(postfixExpressionList);
-    return performCalculation(postfixExpressionList);
+    let result = performCalculation(postfixExpressionList);
+    if(isNaN(result)) return "Malformed Expression";
+    return result;
 }
 
 function insertSymbolIntoPostfixExpressionList(postFixExpressionList, symbolStack, currentElement){
@@ -69,7 +73,7 @@ function performCalculation(postFixExpressionList){
     let numberStack = [];
     while(postFixExpressionList.length > 0){
         let firstPoppedElement = postFixExpressionList.shift();
-        if(firstPoppedElement < '0' || firstPoppedElement > '9'){
+        if("^/*+-".includes(firstPoppedElement)){
             let secondNumber = parseFloat(numberStack.pop());
             let firstNumber = parseFloat(numberStack.pop());
             if(firstPoppedElement === "^") numberStack.push(Math.pow(firstNumber, secondNumber));
