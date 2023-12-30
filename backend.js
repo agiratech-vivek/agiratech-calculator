@@ -19,7 +19,9 @@ var infixExpression = "";
 
 function insertIntoinfixExpression(event){
     if (event.key === "Enter" || event.target.id === "equals"){
-        displayArea.value = infixToPostfix();
+        let result = infixToPostfix();
+        displayArea.value = infixExpression + " = "  + result;
+        inputArea.value = result;
     } else if (event.key === "Delete" || event.target.id === "reset"){
         displayArea.value = "";
         inputArea.value = "";
@@ -51,12 +53,12 @@ function infixToPostfix(){
     }
     console.log(postfixExpressionList);
     let result = performCalculation(postfixExpressionList);
+    saveToStorage(result);
     if(isNaN(result)) return "Malformed Expression";
     return result;
 }
 
 function insertSymbolIntoPostfixExpressionList(postFixExpressionList, symbolStack, currentElement){
-    console.log(currentElement);
     while(symbolStack.length > 0 && precedence[currentElement] <= precedence[symbolStack[symbolStack.length-1]]){
         postFixExpressionList.push(symbolStack.pop());
     }
@@ -87,4 +89,9 @@ function performCalculation(postFixExpressionList){
         }
     }
     return numberStack.pop();
+}
+
+function saveToStorage(result){
+    localStorage.setItem(infixExpression, result);
+    sessionStorage.setItem(infixExpression, result);
 }

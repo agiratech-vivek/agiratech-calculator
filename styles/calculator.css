@@ -32,6 +32,11 @@ button {
     color: aliceblue;
 }
 
+#display {
+    font-size: 24px;
+    overflow-y: scroll;
+}
+
 #backspace {
     font-size: 15px;
 }
