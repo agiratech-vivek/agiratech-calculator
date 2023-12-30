@@ -15,11 +15,9 @@ const precedence = {
     "-" : 1
 }   
 
-var infixExpression = "";
-
 function insertIntoinfixExpression(event){
     if (event.key === "Enter" || event.target.id === "equals"){
-        let result = infixToPostfix();
+        let result = infixToPostfix(inputArea.value);
         displayArea.value = infixExpression + " = "  + result;
         inputArea.value = result;
     } else if (event.key === "Delete" || event.target.id === "reset"){
@@ -33,7 +31,7 @@ function insertIntoinfixExpression(event){
     }
 }
 
-function infixToPostfix(){
+function infixToPostfix(infixExpression){
     let lastCharacterIndex = 0;
     let postfixExpressionList = [];
     let symbolStack = [];
@@ -53,7 +51,7 @@ function infixToPostfix(){
     }
     console.log(postfixExpressionList);
     let result = performCalculation(postfixExpressionList);
-    saveToStorage(result);
+    saveToStorage(infixExpression, result);
     if(isNaN(result)) return "Malformed Expression";
     return result;
 }
@@ -91,7 +89,7 @@ function performCalculation(postFixExpressionList){
     return numberStack.pop();
 }
 
-function saveToStorage(result){
+function saveToStorage(infixExpression, result){
     localStorage.setItem(infixExpression, result);
     sessionStorage.setItem(infixExpression, result);
 }
