@@ -1,5 +1,7 @@
-const displayArea = document.getElementById("display").addEventListener("keyup", checkClickKeyUpEvent);
+const displayArea = document.getElementById("display");
 const inputArea = document.getElementById("input");
+inputArea.addEventListener("keyup", checkClickKeyUpEvent);
+
 const buttonClick = document.querySelectorAll(".input-buttons").forEach((button) => {
   button.addEventListener("click", checkClickKeyUpEvent);
 });
@@ -13,12 +15,10 @@ const precedence = {
 };
 
 function checkClickKeyUpEvent(event) {
-  if(inputArea.value) {
-    if (event.key === "Enter" || event.target.id === "equals") printResult();
-    else if (event.key === "Delete" || event.target.id === "reset") resetCalculator();
-    else if (event.target.id === "backspace") undo();
-    else updateDisplay(event);
-  }
+  if (inputArea.value && event.key === "Enter" || event.target.id === "equals") printResult();
+  else if (event.key === "Delete" || event.target.id === "reset") resetCalculator();
+  else if (event.target.id === "backspace") undo();
+  else updateDisplay(event);
 }
 
 function printResult() {
@@ -49,25 +49,12 @@ function infixToPostfix(infixExpression) {
     let currentElement = infixExpression.charAt(i);
     let operatorString = "^/*+-";
     let indexOfCurrentElement = i;
-    if (
-      i > 0 &&
-      !operatorString.includes(infixExpression.charAt(i - 1)) &&
-      operatorString.includes(currentElement)
-    ) {
-      console.log(i);
-      postfixExpressionList.push(
-        infixExpression.substring(lastCharacterIndex, indexOfCurrentElement)
-      );
+    if (i > 0 && !operatorString.includes(infixExpression.charAt(i - 1)) && operatorString.includes(currentElement)) {
+      postfixExpressionList.push(infixExpression.substring(lastCharacterIndex, indexOfCurrentElement).trim());
       lastCharacterIndex = indexOfCurrentElement + 1;
-      insertSymbolIntoPostfixExpressionList(
-        postfixExpressionList,
-        symbolStack,
-        currentElement
-      );
+      insertSymbolIntoPostfixExpressionList(postfixExpressionList, symbolStack, currentElement);
     } else if (i === infixExpression.length - 1) {
-      postfixExpressionList.push(
-        infixExpression.substring(lastCharacterIndex, indexOfCurrentElement + 1)
-      );
+      postfixExpressionList.push(infixExpression.substring(lastCharacterIndex, indexOfCurrentElement + 1).trim());
       emptySymbolStack(symbolStack, postfixExpressionList);
     }
   }
@@ -102,6 +89,7 @@ function performCalculation(postFixExpressionList) {
     if ("^/*+-".includes(firstPoppedElement)) {
       let secondNumber = parseFloat(numberStack.pop());
       let firstNumber = parseFloat(numberStack.pop());
+      console.log(secondNumber + " " + firstNumber);
       if (firstPoppedElement === "^")
         numberStack.push(Math.pow(firstNumber, secondNumber));
       else if (firstPoppedElement === "/")
