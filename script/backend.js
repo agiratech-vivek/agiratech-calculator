@@ -49,7 +49,7 @@ function infixToPostfix(infixExpression) {
     let currentElement = infixExpression.charAt(i);
     let operatorString = "^/*+-";
     let indexOfCurrentElement = i;
-    if (i > 0 && !operatorString.includes(infixExpression.charAt(i - 1)) && operatorString.includes(currentElement)) {
+    if (i > 0 && !operatorString.includes(infixExpression[i-1]) && operatorString.includes(currentElement)) {
       postfixExpressionList.push(infixExpression.substring(lastCharacterIndex, indexOfCurrentElement).trim());
       lastCharacterIndex = indexOfCurrentElement + 1;
       insertSymbolIntoPostfixExpressionList(postfixExpressionList, symbolStack, currentElement);
@@ -89,7 +89,7 @@ function performCalculation(postFixExpressionList) {
     if ("^/*+-".includes(firstPoppedElement)) {
       let secondNumber = parseFloat(numberStack.pop());
       let firstNumber = parseFloat(numberStack.pop());
-      console.log(secondNumber + " " + firstNumber);
+      //console.log(secondNumber + " " + firstNumber);
       if (firstPoppedElement === "^")
         numberStack.push(Math.pow(firstNumber, secondNumber));
       else if (firstPoppedElement === "/")
