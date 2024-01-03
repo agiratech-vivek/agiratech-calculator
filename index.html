@@ -2,37 +2,78 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="/styles/calculator.css" />
+    <link rel="stylesheet" href="/styles/history.css" />
+    <link rel="stylesheet" href="/styles/popup.css" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <meta charset="UTF-8" />
     <title>Simple Calculator</title>
     <script src="/script/backend.js" defer></script>
   </head>
   <body>
-    <main>
-      <div class="display-area">
-        <input type="text" name="display" id="display" readonly />
-      </div>
-      <div class="input-area">
-        <input type="text" name="input" id="input" placeholder="0" />
-      </div>
-      <div class="input-buttons">
-        <button class="extra-symbol" id="reset">AC</button>
-        <button class="extra-symbol" id="backspace">DEL</button>
-        <button class="symbols" id="^">^</button>
-        <button class="symbols" id="/">/</button>
-        <button id="7">7</button><button id="8">8</button
-        ><button id="9">9</button>
-        <button class="symbols" id="*">x</button>
-        <button id="4">4</button><button id="5">5</button
-        ><button id="6">6</button>
-        <button class="symbols" id="-">-</button>
-        <button id="1">1</button><button id="2">2</button
-        ><button id="3">3</button>
-        <button class="symbols" id="+">+</button>
-        <button id="0" class="zero">0</button
-        ><button class="symbols" id=".">.</button>
-        <button class="symbols" id="equals">=</button>
-      </div>
-    </main>
+    <div id="backdrop"></div>
+    <aside class="modal" id="config-overlay">
+      <h2>Please enter User Name</h2>
+      <form >
+        <div class="form-control">
+          <input type="text" name="username" id="username" />
+        </div>
+        <div>
+          <button type="reset" class="btn btn-alt" id="cancel-config-btn">Cancel</button>
+          <button type="submit" class="btn">Confirm</button>
+        </div>
+      </form>
+    </aside>
+    <section>
+      <main id="calculator">
+        <div class="display-area">
+          <input type="text" name="display" id="display" readonly />
+        </div>
+        <div class="input-area">
+          <input type="text" name="input" id="input" placeholder="0" />
+        </div>
+        <div class="input-buttons">
+          <button class="extra-symbol" id="reset">AC</button>
+          <button class="extra-symbol" id="backspace">DEL</button>
+          <button class="symbols" id="^">^</button>
+          <button class="symbols" id="/">/</button>
+          <button id="7">7</button><button id="8">8</button
+          ><button id="9">9</button>
+          <button class="symbols" id="*">x</button>
+          <button id="4">4</button><button id="5">5</button
+          ><button id="6">6</button>
+          <button class="symbols" id="-">-</button>
+          <button id="1">1</button><button id="2">2</button
+          ><button id="3">3</button>
+          <button class="symbols" id="+">+</button>
+          <button id="0" class="zero">0</button
+          ><button class="symbols" id=".">.</button>
+          <button class="symbols" id="equals">=</button>
+        </div>
+      </main>
+      <main id="history">
+        <h1>History</h1>
+        <div id="search">
+          <form action="" id="search-form">
+            <label for="search"></label>
+            <input
+              type="text"
+              name="search"
+              id="search"
+              placeholder="Please enter search term"
+            />
+            <button type=""></button>
+            <button type="submit">Search</button>
+          </form>
+        </div>
+        <ul id="query-list">
+          <li>1+2+3 : 6</li>
+          <li>1+2+3 : 6</li>
+          <li>1+2+3 : 6</li>
+          <li>1+2+3 : 6</li>
+          <li>1+2+3 : 6</li>
+          <li>1+2+3 : 6</li>
+        </ul>
+      </main>
+    </section>
   </body>
 </html>

@@ -1,6 +1,12 @@
 body {
   background-color: black;
 }
+
+section {
+  display: flex;
+  justify-content: center;
+}
+
 main {
   background-color: rgb(44, 44, 44);
   padding: 10px;
@@ -10,7 +16,9 @@ main {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
+  margin: 20px;
 }
+
 
 input {
   outline-width: 0;

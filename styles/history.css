@@ -1,0 +1,37 @@
+#search-area {
+    display: flex;
+    flex-direction: row;
+}
+
+form button {
+    height: 30px;
+    border-radius: 4px;
+    font-size: 18px;
+    padding: 0px 10px;
+}
+
+input#search {
+    height: 30px;
+    border-radius: 4px;
+    background-color: rgb(134, 134, 134);
+    font-size: 18px;
+    color: rgb(59, 59, 59);
+    text-align: left;
+    border: none;
+}
+
+#query-list {
+    max-height: 380px;
+    font-size: 20px;
+    list-style: none;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#query-list ul.scroll {
+    max-height: 70px;
+}
+
+#query-list li {
+    padding: 8px;
+}
