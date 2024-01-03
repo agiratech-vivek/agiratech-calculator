@@ -6,6 +6,15 @@ const buttonClick = document.querySelectorAll(".input-buttons").forEach((button)
   button.addEventListener("click", checkClickKeyUpEvent);
 });
 
+function writeLocalStore(exp, res) 
+{
+  let local = JSON.parse(localStorage.getItem('cal')) || [];
+  local.push({
+    exp: exp,
+    res:res
+  });
+  localStorage.setItem('cal', JSON.stringify(local))
+}
 const precedence = {
   "^": 3,
   "/": 2,
@@ -109,6 +118,7 @@ function performCalculation(postFixExpressionList) {
 }
 
 function saveToStorage(infixExpression, result) {
-  localStorage.setItem(infixExpression, result);
-  sessionStorage.setItem(infixExpression, result);
+  //localStorage.setItem(infixExpression, result);
+  //sessionStorage.setItem(infixExpression, result);
+  writeLocalStore(infixExpression, result);
 }
