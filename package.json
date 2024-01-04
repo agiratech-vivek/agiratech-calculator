@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodejs": "^0.0.0",
+    "nodemon": "^3.0.2"
+  },
+  "name": "agiratech-calculator",
+  "description": "## Frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agiratech-vivek/agiratech-calculator.git"
+  },
+  "author": "Vivek Raj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agiratech-vivek/agiratech-calculator/issues"
+  },
+  "homepage": "https://github.com/agiratech-vivek/agiratech-calculator#readme"
+}
