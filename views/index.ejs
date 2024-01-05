@@ -1,36 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="stylesheet" href="/public/styles/calculator.css" />
-    <link rel="stylesheet" href="/public/styles/history.css" />
-    <link rel="stylesheet" href="/public/styles/popup.css" />
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
-      rel="stylesheet"
-    />  
-    <meta charset="UTF-8" />
-    <title>Simple Calculator</title>
-    <script src="/public/script/backend.js" defer></script>
-  </head>
+  <%- include('includes/head') %>
   <body>
-    <div id="backdrop"></div>
-    <aside class="modal" id="config-overlay">
-      <h2>Please enter User Name</h2>
-      <form>
-        <div class="form-control">
-          <input type="text" name="username" id="username" />
-        </div>
-        <div>
-          <button type="reset" class="btn btn-alt" id="cancel-config-btn">
-            Cancel
-          </button>
-          <button type="submit" class="btn">Confirm</button>
-        </div>
-      </form>
-    </aside>
+    <%- include('includes/backdrop-overlay') %>
     <section>
       <main id="calculator">
         <div class="display-area">
@@ -58,38 +30,7 @@
           <button class="symbols" id="equals">=</button>
         </div>
       </main>
-      <main id="history">
-        <h1>History</h1>
-        <div id="search">
-          <form action="" id="search-form">
-            <label for="search"></label>
-            <input
-              type="text"
-              name="search"
-              id="search"
-              placeholder="Please enter search term"
-            />
-            <button type="">Filter</button>
-            <button type="submit">Search</button>
-          </form>
-        </div>
-        <ul id="query-list">
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-          <li>1+2+3 : 6</li>
-        </ul>
-        </ul>
-        </ul>
-      </main>
+      <%- include('includes/history') %>
     </section>
   </body>
 </html>
