@@ -9,7 +9,7 @@ async function createSaveUser(event){
     event.preventDefault();
     const formData = new FormData(event.target);
     const userName = formData.get("username").trim();
-    console.log(userName);
+    if(!userName) return;
     await fetch("/submit", {
         method: "POST",
         body: JSON.stringify({username : userName}),
