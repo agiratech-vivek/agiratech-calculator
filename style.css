@@ -36,6 +36,7 @@ button {
 #display {
   font-size: 24px;
   overflow-y: scroll;
+  max-width: 95%;
 }
 
 #backspace {
@@ -72,7 +73,7 @@ button:hover {
 }
 
 main input {
-  width: 23.9rem;
+  max-width: 95%;
   height: 86px;
   border-radius: 20px;
   background-color: rgb(44, 44, 44);
