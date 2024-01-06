@@ -1,39 +1,50 @@
+h1 {
+    color: white;
+    font-weight: 400;
+}
+
 #search-area {
+  display: flex;
+  flex-direction: row;
+}
+
+form#search-form {
     display: flex;
-    flex-direction: row;
+    align-items: baseline;
 }
 
-form button {
-    height: 30px;
-    border-radius: 4px;
-    font-size: 18px;
-    padding: 0px 10px;
-}
-
-input#search {
-    height: 30px;
-    border-radius: 4px;
+input#search-term-input {
+    border-radius: 15px;
     background-color: rgb(134, 134, 134);
-    font-size: 18px;
+    font-size: 12px;
     color: rgb(59, 59, 59);
     text-align: left;
     border: none;
+    width: 60%;
+    height: 34px;   
 }
 
+form#search-form button {
+    border-radius: 15px;
+    font-size: 12px;
+    padding: 11px 12px;
+}
+
+
 #query-list {
-    margin: 10px 0 0 0;
-    max-height: 350px;
-    font-size: 20px;
-    color: aliceblue;
-    list-style: none;
-    padding: 10px;
-    overflow-y: auto;
+  margin: 10px 0 0 0;
+  max-height: 350px;
+  font-size: 20px;
+  color: aliceblue;
+  list-style: none;
+  padding: 10px;
+  overflow-y: auto;
 }
 
 #query-list ul.scroll {
-    max-height: 70px;
+  max-height: 70px;
 }
 
 #query-list li {
-    padding: 8px;
+  padding: 8px;
 }

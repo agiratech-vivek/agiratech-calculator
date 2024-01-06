@@ -8,6 +8,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
+app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 app.get('/', function(request, response){
@@ -16,10 +17,11 @@ app.get('/', function(request, response){
     response.render('index');
 });
 
-app.post('/submit', function(request, response){
-    const userName = response.body.username;
-    console.log(userName);
-    response.json("User saved");
+app.post('/submit', async function(request, response){
+    const user = request.body.username;
+    console.log(user);
+
+    response.json({});
 });
 
 app.use(function(request, response){

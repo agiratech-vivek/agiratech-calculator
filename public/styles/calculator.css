@@ -1,28 +1,18 @@
-body {
-  background-color: black;
-  font-family: 'Roboto', sans-serif;
-}
-
-section {
-  display: flex;
-  justify-content: center;
-}
-
-main {
-  background-color: rgb(44, 44, 44);
-  padding: 10px;
-  width: 300px;
+.display-input-area {
+  width: 96%;
+  height: 86px;
   border-radius: 20px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
+  background-color: rgb(44, 44, 44);
+  font-size: 40px;
+  color: aliceblue;
+  text-align: right;
+  vertical-align: bottom;
+  border: none;
 }
 
-
-input {
-  outline-width: 0;
+#display {
+  font-size: 24px;
+  overflow-y: scroll;
 }
 
 .input-buttons {
@@ -30,21 +20,6 @@ input {
   grid-template-columns: repeat(4, 1fr);
   margin: 20px auto 10px auto;
   font-weight: bold;
-}
-
-button {
-  background-color: rgb(56, 56, 56);
-  padding: 20px;
-  border-radius: 50px;
-  border: none;
-  margin: 2px;
-  font-size: 20px;
-  color: aliceblue;
-}
-
-#display {
-  font-size: 24px;
-  overflow-y: scroll;
 }
 
 #backspace {
@@ -78,18 +53,6 @@ button {
 button:hover {
   background-color: white;
   color: black;
-}
-
-main input {
-  width: 96%;
-  height: 86px;
-  border-radius: 20px;
-  background-color: rgb(44, 44, 44);
-  font-size: 40px;
-  color: aliceblue;
-  text-align: right;
-  vertical-align: bottom;
-  border: none;
 }
 
 .zero {

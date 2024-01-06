@@ -5,8 +5,18 @@ const formElement = document.getElementById("create-user-form");
 
 formElement.addEventListener("submit", createSaveUser);
 
-function createSaveUser(event){
+async function createSaveUser(event){
     event.preventDefault();
     const formData = new FormData(event.target);
-    const username = formData.get("username").trim();
+    const userName = formData.get("username").trim();
+    console.log(userName);
+    await fetch("/submit", {
+        method: "POST",
+        body: JSON.stringify({username : userName}),
+        headers: {
+            "Content-Type" : "application/json"
+        }
+    });
+    backdrop.style.display = "none";
+    popup.style.display = "none";
 }

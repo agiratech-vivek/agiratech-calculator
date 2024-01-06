@@ -1,0 +1,33 @@
+body {
+  background-color: black;
+  font-family: "Roboto", sans-serif;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  background-color: rgb(44, 44, 44);
+  padding: 10px;
+  width: 300px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+input {
+  outline-width: 0;
+}
+
+button {
+    background-color: rgb(56, 56, 56);
+    padding: 20px;
+    border-radius: 50px;
+    border: none;
+    margin: 2px;
+    font-size: 20px;
+    color: aliceblue;
+  }

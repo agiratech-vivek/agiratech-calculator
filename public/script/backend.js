@@ -55,7 +55,7 @@ function infixToPostfix(infixExpression) {
   let postfixExpressionList = [];
   let symbolStack = [];
   for (let i = 0; i < infixExpression.length; i++) {
-    let currentElement = infixExpression.charAt(i);
+    let currentElement = infixExpression[i];
     let operatorString = "^/*+-";
     let indexOfCurrentElement = i;
     if (i > 0 && !operatorString.includes(infixExpression[i-1]) && operatorString.includes(currentElement)) {
