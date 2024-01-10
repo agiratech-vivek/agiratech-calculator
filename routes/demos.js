@@ -1,12 +1,21 @@
-const mysql = require("mysql2/promise");
 const express = require("express");
+const uuid = require("uuid");
 
 const db = require("../utils/dbqueries");
 
 const router = express.Router();
 
 router.get("/", function (request, response) {
-  response.render("signup");
+  response.render("index");
+});
+
+router.post("/signup", async (request, response) => {
+  const id = uuid.v4();
+  const username = request.body.username;
+  const name = request.body.name;
+  const password = request.body.password;
+  await db.addNewUser(id, username,name, password);
+  response.redirect("/index");
 });
 
 router.post("/submit", async function (request, response) {

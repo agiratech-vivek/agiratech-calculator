@@ -11,9 +11,11 @@
     <section id="landing-section">
         <form action="/signup" id="signup" method="POST">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" placeholder="xyz" required>
+            <input type="text" name="username" id="username" placeholder="Please choose your username" required>
+            <label for="fullname">Name</label>
+            <input type="text" name="name" id="name" placeholder="Please enter your name" required>
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" id="password" placeholder="Please choose your password" required>
             <button type="submit">Signup</button>
             <p>Already have an account? <a href="">Sign in</a></p>
         </form>

@@ -1,4 +1,12 @@
 const db = require("../data/database");
+const bcrypt = require("bcrypt");
+
+async function addNewUser(id, username,name, password){
+  const addUser = "INSERT INTO users (id, user,name, password) values (?)"
+  const hash = bcrypt.hashSync(password, 12);
+  console.log(hash.length);
+  await db.query(addUser, [[id, username,name, hash]]);
+}
 
 async function getUser(user){
     const searchUser = "SELECT id FROM users WHERE name = ?";
@@ -45,6 +53,7 @@ async function insertIntoMappingTable(userId, expressionId){
 }
 
 module.exports = {
+    addNewUser : addNewUser,
     getUser : getUser,
     insertUser : insertUser,
     fetchUserHistory : fetchUserHistory,

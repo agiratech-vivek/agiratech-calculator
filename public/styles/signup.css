@@ -15,8 +15,13 @@ body {
 #signup {
     display: flex;
     flex-direction: column;
-    height: 200px;
-    justify-content: space-between;
+    height: 300px;
+    justify-content: normal;
+}
+
+label {
+    padding-bottom: 6px;
+    padding-top: 20px;
 }
 
 #signup input {
@@ -28,6 +33,7 @@ body {
 #signup button {
     padding: 9px;
     font-size: 15px;
+    margin: 20px;
 }
 
 #signup button:hover {
