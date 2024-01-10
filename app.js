@@ -2,7 +2,6 @@ const path = require("path");
 
 const express = require("express");
 
-const db = require('./data/database');
 const demoRoutes = require('./routes/demos');
 
 const app = express();

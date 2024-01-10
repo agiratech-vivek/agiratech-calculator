@@ -1,0 +1,36 @@
+body {
+    background-color: blueviolet;
+}
+
+#landing-section {
+    background-color: rgb(44, 44, 44);
+    color: white;
+    width: 350px;
+    padding: 50px 30px;
+    margin: 100px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#signup {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    justify-content: space-between;
+}
+
+#signup input {
+    height: 2rem;
+    border-radius: 5px;
+    border: none;
+}
+
+#signup button {
+    padding: 9px;
+    font-size: 15px;
+}
+
+#signup button:hover {
+    background-color: rgb(255, 149, 0);
+    color: black;
+}

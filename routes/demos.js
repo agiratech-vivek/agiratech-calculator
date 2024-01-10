@@ -6,7 +6,7 @@ const db = require("../utils/dbqueries");
 const router = express.Router();
 
 router.get("/", function (request, response) {
-  response.render("index", {expressionList : []});
+  response.render("signup");
 });
 
 router.post("/submit", async function (request, response) {
@@ -37,7 +37,6 @@ router.post("/saveresult", async function (request, response) {
   // checking if user_id and expression_id already exists in mapping table
   const [user_id] = await db.searchUserIdQueryIdInMappingTable(userId[0].id, expressionId[0].id);
   if(!user_id.length)await db.insertIntoMappingTable(userId[0].id, expressionId[0].id);
-  
   response.json({});
 });
 
