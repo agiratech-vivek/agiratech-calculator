@@ -16,12 +16,12 @@ app.use(express.urlencoded({extended: false}));
 
 app.use(demoRoutes);
 
-// app.use(function (request, response) {
-//     response.render("404");
-//   });
+app.use(function (request, response) {
+    response.render("404");
+  });
   
-//   app.use(function (error, request, response, next) {
-//     response.render("500");
-//   });
+  app.use(function (error, request, response, next) {
+    response.render("500");
+  });
 
 app.listen(4000);

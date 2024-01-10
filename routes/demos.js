@@ -26,21 +26,24 @@ router.post("/submit", async function (request, response) {
 router.post("/saveresult", async function (request, response) {
   const expression = request.body.expression;
   const result = request.body.result;
-  const user = request.body.username;
+  const username = request.body.username;
 
   let [expressionId] = await db.getExpressionId(expression);
   if (!expressionId.length) {
     [expressionId] = await db.insertQueries(expression, result);
   }
-  const [userId] = await db.getUser(user);
-  await db.insertIntoMappingTable(userId[0].id, expressionId[0].id);
+  
+  const [userId] = await db.getUser(username);
+  // checking if user_id and expression_id already exists in mapping table
+  const [user_id] = await db.searchUserIdQueryIdInMappingTable(userId[0].id, expressionId[0].id);
+  if(!user_id.length)await db.insertIntoMappingTable(userId[0].id, expressionId[0].id);
+  
   response.json({});
 });
 
 router.get("/search/:user", async function (request, response) {
   const user = request.params.user;
   const [expressionList] = await db.fetchUserHistory(user);
-  console.log(expressionList);
   return response.json({expressionList});
 });
 

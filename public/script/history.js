@@ -3,6 +3,7 @@ const queryList = document.getElementById("query-list");
 historyForm.addEventListener("submit", searchUserName);
 
 function addHistory(expressionList){
+    queryList.innerHTML = "";
     const historyList = document.createElement("ul");
     if(expressionList.length === 0){
         const li = document.createElement('li');
@@ -15,7 +16,6 @@ function addHistory(expressionList){
             historyList.appendChild(li);
         }
     }
-    console.log(historyList);
     queryList.appendChild(historyList);
 }
 

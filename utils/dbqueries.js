@@ -33,8 +33,12 @@ async function insertQueries(expression, result){
     return await getExpressionId(expression);
 }
 
+async function searchUserIdQueryIdInMappingTable(userId, expressionId){
+  const searchInMappingTable = "SELECT user_id FROM users_queries WHERE user_id = ? AND query_id = ?";
+  return await db.query(searchInMappingTable, [userId, expressionId]);
+}
+
 async function insertIntoMappingTable(userId, expressionId){
-    console.log(userId + expressionId);
     const insertInMappingTableQueryString = 
     "INSERT INTO users_queries values (?)";
     await db.query(insertInMappingTableQueryString, [[userId+"", expressionId+""]]);
@@ -46,5 +50,6 @@ module.exports = {
     fetchUserHistory : fetchUserHistory,
     getExpressionId : getExpressionId,
     insertQueries : insertQueries,
+    searchUserIdQueryIdInMappingTable : searchUserIdQueryIdInMappingTable,
     insertIntoMappingTable : insertIntoMappingTable
 }
