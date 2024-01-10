@@ -1,3 +1,8 @@
+#history {
+  display: flex;
+  flex-direction: column;
+}
+
 h1 {
     color: white;
     font-weight: 400;
@@ -36,9 +41,13 @@ form#search-form button {
   max-height: 350px;
   font-size: 20px;
   color: aliceblue;
-  list-style: none;
   padding: 10px;
   overflow-y: auto;
+  text-align: left;
+}
+
+#query-list ul{
+  list-style: none;
 }
 
 #query-list ul.scroll {

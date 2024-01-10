@@ -24,16 +24,33 @@ const precedence = {
 };
 
 function checkClickKeyUpEvent(event) {
-  if (inputArea.value && event.key === "Enter" || event.target.id === "equals") printResult();
+  if (inputArea.value && event.key === "Enter" || event.target.id === "equals") {
+    printResult();
+  }
   else if (event.key === "Delete" || event.target.id === "reset") resetCalculator();
   else if (event.target.id === "backspace") undo();
   else updateDisplay(event);
 }
 
-function printResult() {
-  let result = infixToPostfix(inputArea.value);
-  displayArea.value = inputArea.value + " = " + result;
+function updateDisplay(event) {
+  if (event.detail === 1) inputArea.value += event.target.id;
+  infixExpression = inputArea.value;
+}
+
+async function printResult() {
+  const result = infixToPostfix(inputArea.value);
+  const expression = inputArea.value;
+  const username = usernamedisplay.textContent;
+  displayArea.value = expression + " = " + result;
   inputArea.value = result;
+  await fetch("/saveresult", {
+    method: "POST",
+    body: JSON.stringify({expression: expression, result : result, username : username}),
+    headers: {
+        "Content-Type" : "application/json"
+    }
+  });
+  await getUserHistory(username);
 }
 
 function resetCalculator() {
@@ -45,10 +62,7 @@ function undo() {
   inputArea.value = inputArea.value.slice(0, -1);
 }
 
-function updateDisplay(event) {
-  if (event.detail === 1) inputArea.value += event.target.id;
-  infixExpression = inputArea.value;
-}
+
 
 function infixToPostfix(infixExpression) {
   let lastCharacterIndex = 0;

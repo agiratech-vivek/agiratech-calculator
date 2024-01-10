@@ -1,6 +1,12 @@
 body {
   background-color: black;
   font-family: "Roboto", sans-serif;
+  color: aliceblue;
+  text-align: center;
+}
+
+#usernamedisplay {
+  margin: 10px auto 10px auto;
 }
 
 section {

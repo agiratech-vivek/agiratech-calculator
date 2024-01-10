@@ -1,5 +1,6 @@
 const backdrop = document.getElementById("backdrop");
 const popup = document.getElementById("config-overlay");
+const userheader = document.getElementById("usernamedisplay");
 
 const formElement = document.getElementById("create-user-form");
 
@@ -19,4 +20,6 @@ async function createSaveUser(event){
     });
     backdrop.style.display = "none";
     popup.style.display = "none";
+    userheader.textContent = userName;
+    await getUserHistory(userName);
 }
