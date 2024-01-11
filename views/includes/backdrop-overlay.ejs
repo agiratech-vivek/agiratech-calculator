@@ -1,15 +1,12 @@
 <% if (expressionList.length === 0) { %>
 <div id="backdrop"></div>
 <aside class="modal" id="config-overlay">
-  <h2>Please enter User Name</h2>
   <form id="create-user-form">
     <div class="form-control">
-      <input
-        type="text"
-        name="username"
-        id="username"
-        placeholder="Enter User Name"
-      />
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" placeholder="Enter User Name" />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" placeholder="Please enter your password">
     </div>
     <div>
       <button type="reset" class="btn btn-alt" id="cancel-config-btn">

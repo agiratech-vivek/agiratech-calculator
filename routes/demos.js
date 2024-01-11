@@ -1,13 +1,18 @@
 const express = require("express");
 const uuid = require("uuid");
+const bcrypt = require("bcrypt");
 
 const db = require("../utils/dbqueries");
 
 const router = express.Router();
 
 router.get("/", function (request, response) {
-  response.render("index");
+  response.render("signup");
 });
+
+router.get("/signin", (request, response) => {
+  response.render("index", {expressionList : []});
+})
 
 router.post("/signup", async (request, response) => {
   const id = uuid.v4();
@@ -15,21 +20,33 @@ router.post("/signup", async (request, response) => {
   const name = request.body.name;
   const password = request.body.password;
   await db.addNewUser(id, username,name, password);
-  response.redirect("/index");
+  return response.render("index", {expressionList : []});
+});
+
+router.get("/checkuser/:username", async (request, response) => {
+  const username = request.params.username;
+  const {id} = await db.getUser(username);
+  response.json({id : id});
 });
 
 router.post("/submit", async function (request, response) {
   const user = request.body.username;
-  const [id] = await db.getUser(user);
+  const plainTextPassword = request.body.password;
 
-  if (id.length === 0) {
-    await db.insertUser(user);
-  } else {
-    const [expressionList] = await db.fetchUserHistory(user);
-    response.json({expressionList : expressionList});
+  const getUserPassword = await db.getUser(user);
+
+  if (!getUserPassword[0][0]) {
+    return response.json({error : "No user found"});
+  }
+
+  const {id = 0, password = 0} = getUserPassword[0][0];
+
+  const comparePassword = bcrypt.compareSync(plainTextPassword, password);
+  if(comparePassword){
+    response.json({});
     return;
   }
-  response.json({});
+  response.json({error : "username or password incorrect"});
 });
 
 router.post("/saveresult", async function (request, response) {
