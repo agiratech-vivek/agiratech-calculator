@@ -1,6 +1,7 @@
 const backdrop = document.getElementById("backdrop");
 const popup = document.getElementById("config-overlay");
 const userheader = document.getElementById("usernamedisplay");
+const errorMessage = document.getElementById("error");
 
 const formElement = document.getElementById("create-user-form");
 
@@ -19,15 +20,18 @@ async function createSaveUser(event) {
       "Content-Type": "application/json",
     },
   });
-  const {error = ""} = await response.json();
-  console.log(error);
-
-  if (error === "") {
-    backdrop.style.display = "none";
-    popup.style.display = "none";
-    userheader.textContent = userName;
-    await getUserHistory(userName);
+  const { message = "" } = await response.json();
+  console.log(message);
+  if (
+    message === "No user found" ||
+    message === "username or password incorrect"
+  ) {
+    errorMessage.textContent = message;
     return;
   }
-  console.log(error);
+  backdrop.style.display = "none";
+  popup.style.display = "none";
+  userheader.textContent = message;
+  await getUserHistory(userName);
+  return;
 }

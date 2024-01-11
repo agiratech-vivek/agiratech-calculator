@@ -36,17 +36,17 @@ router.post("/submit", async function (request, response) {
   const getUserPassword = await db.getUser(user);
 
   if (!getUserPassword[0][0]) {
-    return response.json({error : "No user found"});
+    return response.json({message : "No user found"});
   }
 
-  const {id = 0, password = 0} = getUserPassword[0][0];
+  const {id, name, password} = getUserPassword[0][0];
 
   const comparePassword = bcrypt.compareSync(plainTextPassword, password);
   if(comparePassword){
-    response.json({});
+    response.json({message : name});
     return;
   }
-  response.json({error : "username or password incorrect"});
+  response.json({message : "Username or Password incorrect"});
 });
 
 router.post("/saveresult", async function (request, response) {

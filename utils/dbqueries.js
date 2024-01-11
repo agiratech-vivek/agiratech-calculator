@@ -9,7 +9,7 @@ async function addNewUser(id, username,name, password){
 }
 
 async function getUser(username){
-    const searchUser = "SELECT id, password FROM users WHERE user = ?";
+    const searchUser = "SELECT id, name, password FROM users WHERE user = ?";
     return await db.query(searchUser, [[username]]);
 }
 
