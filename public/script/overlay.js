@@ -15,16 +15,16 @@ async function createSaveUser(event) {
   if (!userName) return;
   const response = await fetch("/submit", {
     method: "POST",
-    body: JSON.stringify({ username: userName, password: password }),
+    body: JSON.stringify({ user: userName, plainTextPassword: password }),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  const { message = "" } = await response.json();
+  const { message = "", id = "" } = await response.json();
   console.log(message);
   if (
     message === "No user found" ||
-    message === "username or password incorrect"
+    message === "Username or Password incorrect"
   ) {
     errorMessage.textContent = message;
     return;
@@ -32,6 +32,7 @@ async function createSaveUser(event) {
   backdrop.style.display = "none";
   popup.style.display = "none";
   userheader.textContent = message;
+  userId.value = id;
   await getUserHistory(userName);
   return;
 }

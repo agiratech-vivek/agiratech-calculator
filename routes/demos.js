@@ -6,7 +6,7 @@ const db = require("../utils/dbqueries");
 
 const router = express.Router();
 
-router.get("/", function (request, response) {
+router.get("/", (request, response) => {
   response.render("signup");
 });
 
@@ -16,60 +16,59 @@ router.get("/signin", (request, response) => {
 
 router.post("/signup", async (request, response) => {
   const id = uuid.v4();
-  const username = request.body.username;
-  const name = request.body.name;
-  const password = request.body.password;
+  const {username, name, password} = request.body;
   await db.addNewUser(id, username,name, password);
   return response.render("index", {expressionList : []});
 });
 
 router.get("/checkuser/:username", async (request, response) => {
   const username = request.params.username;
-  const {id} = await db.getUser(username);
-  response.json({id : id});
+  const searchUserResponse = await db.getUser(username);
+  if(!searchUserResponse[0][0]){
+    return response.json({id : 0});
+  }
+  const {id} = searchUserResponse[0][0];
+  return response.json({id});
 });
 
-router.post("/submit", async function (request, response) {
-  const user = request.body.username;
-  const plainTextPassword = request.body.password;
-
+router.post("/submit", async (request, response) => {
+  const {user, plainTextPassword} = request.body;
   const getUserPassword = await db.getUser(user);
-
+  
   if (!getUserPassword[0][0]) {
     return response.json({message : "No user found"});
   }
 
   const {id, name, password} = getUserPassword[0][0];
-
+  
   const comparePassword = bcrypt.compareSync(plainTextPassword, password);
   if(comparePassword){
-    response.json({message : name});
+    response.json({message : name, id : id});
     return;
   }
   response.json({message : "Username or Password incorrect"});
 });
 
-router.post("/saveresult", async function (request, response) {
-  const expression = request.body.expression;
-  const result = request.body.result;
-  const username = request.body.username;
+router.post("/saveresult", async (request, response) => {
+  const {expression, result, userId} = request.body;
+  const expressionId = uuid.v4();
 
-  let [expressionId] = await db.getExpressionId(expression);
-  if (!expressionId.length) {
-    [expressionId] = await db.insertQueries(expression, result);
+  const [expression_id] = await db.getExpressionId(expression);
+  if (!expression_id.length) {
+    await db.insertQueries(expressionId, expression, result);
   }
   
-  const [userId] = await db.getUser(username);
-  // checking if user_id and expression_id already exists in mapping table
-  const [user_id] = await db.searchUserIdQueryIdInMappingTable(userId[0].id, expressionId[0].id);
-  if(!user_id.length)await db.insertIntoMappingTable(userId[0].id, expressionId[0].id);
+  await db.insertIntoMappingTable(userId, expressionId, (new Date).toISOString().substring(0, 10));
   response.json({});
 });
 
-router.get("/search/:user", async function (request, response) {
-  const user = request.params.user;
-  const [expressionList] = await db.fetchUserHistory(user);
-  return response.json({expressionList});
+console.log(new Date().toLocaleString().substring(0 , 9));
+
+router.get("/history/:userid/:startdate/:enddate", async (request, response) => {
+  const {userId, startDate, endDate} = request.params;
+  console.log(userId + " " + startDate + " " + endDate);
+  const [searchResult] = await db.fetchUserHistory(startDate, endDate, userId);
+  response.json({searchResult : searchResult});
 });
 
 module.exports = router;

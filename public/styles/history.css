@@ -4,8 +4,13 @@
 }
 
 h1 {
-    color: white;
-    font-weight: 400;
+  color: white;
+  font-weight: 400;
+}
+
+.datepicker {
+  display: flex;
+  flex-direction: column;
 }
 
 #search-area {
@@ -14,46 +19,58 @@ h1 {
 }
 
 form#search-form {
-    display: flex;
-    align-items: baseline;
+  display: grid;
+  height: 105px;
+  flex-direction: column;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
 }
 
-input#search-term-input {
-    border-radius: 15px;
-    background-color: rgb(134, 134, 134);
-    font-size: 12px;
-    color: rgb(59, 59, 59);
-    text-align: left;
-    border: none;
-    width: 60%;
-    height: 34px;   
+label {
+  padding-bottom: 5px;
+  font-size: 15px;
+}
+
+.search-term-input {
+  border-radius: 10px;
+  background-color: rgb(134, 134, 134);
+  font-size: 12px;
+  color: rgb(59, 59, 59);
+  text-align: center;
+  border: none;
+  width: 95%;
+  margin: auto;
+  height: 30px;
 }
 
 form#search-form button {
-    border-radius: 15px;
-    font-size: 12px;
-    padding: 11px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  padding: 11px 12px;
 }
 
-
 #query-list {
-  margin: 10px 0 0 0;
-  max-height: 350px;
+  max-height: 68%;
   font-size: 20px;
   color: aliceblue;
   padding: 10px;
   overflow-y: auto;
-  text-align: left;
+  height: 68%;
 }
 
-#query-list ul{
+#query-list ul {
   list-style: none;
+  margin: 0;
+  padding: 10px;
+  text-align: left;
+  list-style: circle;
 }
 
 #query-list ul.scroll {
-  max-height: 70px;
+  max-height: 68%;
 }
 
 #query-list li {
-  padding: 8px;
+  padding: 5px;
+  font-size: 1.5rem;
 }

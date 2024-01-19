@@ -1,7 +1,7 @@
 const db = require("../data/database");
 const bcrypt = require("bcrypt");
 
-async function addNewUser(id, username,name, password){
+async function addNewUser(id, username, name, password){
   const addUser = "INSERT INTO users (id, user,name, password) values (?)"
   const hash = bcrypt.hashSync(password, 12);
   console.log(hash.length);
@@ -13,20 +13,16 @@ async function getUser(username){
     return await db.query(searchUser, [[username]]);
 }
 
-const insertUser = async (user) => {
-  const insertUserQuery = "INSERT INTO users (name) values (?)";
-  await db.query(insertUserQuery, [user]);
-};
-
-async function fetchUserHistory(user){
-  const fetchUserHistoryQuery = `SELECT q.expression as expression, q.result as result 
-    FROM users u 
-    JOIN users_queries uq 
-    ON u.id = uq.user_id 
-    JOIN queries q 
-    ON uq.query_id = q.id 
-    WHERE u.name = ?`;
-  return await db.query(fetchUserHistoryQuery, [user]);
+async function fetchUserHistory(startDate, endDate, userId){
+  const searchHistory = 
+  `SELECT q.expression, q.result
+  FROM users u
+  JOIN users_queries uq
+  ON u.id = uq.user_id
+  JOIN queries q
+  ON q.id = uq.query_id
+  WHERE u.id = ? AND uq.date BETWEEN ? AND ?`
+  return await db.query(searchHistory, [userId, startDate, endDate]);
 };
 
 async function getExpressionId(expression){
@@ -34,31 +30,24 @@ async function getExpressionId(expression){
     return await db.query(searchQueryString, [expression]);
 }
 
-async function insertQueries(expression, result){
+async function insertQueries(id, expression, result){
     const insertQueryString =
-    "INSERT INTO queries (expression, result) values (?)";
-    await db.query(insertQueryString,[[expression, result]]);
-    return await getExpressionId(expression);
+    "INSERT INTO queries (id, expression, result) values (?)";
+    console.log(id);
+    await db.query(insertQueryString,[[id, expression, result]]);
 }
 
-async function searchUserIdQueryIdInMappingTable(userId, expressionId){
-  const searchInMappingTable = "SELECT user_id FROM users_queries WHERE user_id = ? AND query_id = ?";
-  return await db.query(searchInMappingTable, [userId, expressionId]);
-}
-
-async function insertIntoMappingTable(userId, expressionId){
+async function insertIntoMappingTable(userId, expressionId, date){
     const insertInMappingTableQueryString = 
-    "INSERT INTO users_queries values (?)";
-    await db.query(insertInMappingTableQueryString, [[userId+"", expressionId+""]]);
+    "INSERT INTO users_queries (user_id, query_id, date) values (?)";
+    await db.query(insertInMappingTableQueryString, [[userId, expressionId, date]]);
 }
 
 module.exports = {
     addNewUser : addNewUser,
     getUser : getUser,
-    insertUser : insertUser,
     fetchUserHistory : fetchUserHistory,
     getExpressionId : getExpressionId,
     insertQueries : insertQueries,
-    searchUserIdQueryIdInMappingTable : searchUserIdQueryIdInMappingTable,
     insertIntoMappingTable : insertIntoMappingTable
 }

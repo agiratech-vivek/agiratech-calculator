@@ -15,7 +15,7 @@ body {
 #signup {
     display: flex;
     flex-direction: column;
-    height: 300px;
+    height: 355px;
     justify-content: normal;
 }
 
@@ -39,8 +39,4 @@ label {
 #signup button:hover {
     background-color: rgb(255, 149, 0);
     color: black;
-}
-
-.warning {
-    background-color: rgb(201, 79, 38);
 }

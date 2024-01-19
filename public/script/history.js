@@ -1,33 +1,27 @@
 const historyForm = document.getElementById("search-form");
 const queryList = document.getElementById("query-list");
-historyForm.addEventListener("submit", searchUserName);
+const userId = document.getElementById("userid");
+const historyPreview = document.getElementById("history-preview");
 
-function addHistory(expressionList){
-    queryList.innerHTML = "";
-    const historyList = document.createElement("ul");
-    if(expressionList.length === 0){
-        const li = document.createElement('li');
-        li.textContent = "0 result found"
-        historyList.appendChild(li);
-    } else {
-        for(elements of expressionList) {
-            const li = document.createElement('li');
-            li.textContent = elements.expression + " : " + elements.result
-            historyList.appendChild(li);
-        }
-    }
-    queryList.appendChild(historyList);
-}
+historyForm.addEventListener("submit", getUserHistory);
 
-async function searchUserName(event){
+
+async function getUserHistory(event){
     event.preventDefault();
     const formData = new FormData(event.target);
-    const user = formData.get("name").trim();
-    await getUserHistory(user);
+    const startDate = formData.get("startdate");
+    const endDate = formData.get("enddate");
+    const userId = formData.get("userid");
+    const response = await fetch(`/history/${userId}/${startDate}/${endDate}/`);
+    const {searchResult} = await response.json();
+    displayUserHistory(searchResult);
 }
 
-async function getUserHistory(user){
-    const response = await fetch(`/search/${user}`);
-    const {expressionList} = await response.json();
-    addHistory(expressionList);
+function displayUserHistory(searchResult){
+    historyPreview.textContent = "";
+    for(elements of searchResult){
+        const list = document.createElement("li");
+        list.textContent = elements.expression + " = " + elements.result;
+        historyPreview.appendChild(list);
+    }
 }

@@ -1,19 +1,24 @@
 <main id="history">
-  <h1>History</h1>
+  <div id="title">
+    <h1>History</h1>
+  </div>
   <div id="search">
     <form id="search-form">
-      <input
-        type="text"
-        name="name"
-        id="search-term-input"
-        placeholder="Please enter search term"
-      />
+      <input type="text" name="userid" hidden id="userid">
+      <div class="datepicker">
+        <label for="startdate">Start Date</label>
+        <input type="date" name="startdate" class="search-term-input">  
+      </div>
+      <div class="datepicker">  
+        <label for="enddate">End Date</label>
+        <input type="date" name="enddate" class="search-term-input">
+      </div>
       <button type="submit">Search</button>
     </form>
   </div>
   <div id="query-list">
-    <ul>
-  
+    <ul id="history-preview">
+      
     </ul>
   </div>
 </main>

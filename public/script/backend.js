@@ -37,20 +37,20 @@ function updateDisplay(event) {
   infixExpression = inputArea.value;
 }
 
-async function printResult() {
+async function printResult(event) {
   const result = infixToPostfix(inputArea.value);
   const expression = inputArea.value;
-  const username = usernamedisplay.textContent;
+  const username = userId.value;
   displayArea.value = expression + " = " + result;
   inputArea.value = result;
   await fetch("/saveresult", {
     method: "POST",
-    body: JSON.stringify({expression: expression, result : result, username : username}),
+    body: JSON.stringify({expression: expression, result : result, userId : username}),
     headers: {
         "Content-Type" : "application/json"
     }
   });
-  await getUserHistory(username);
+  await getUserHistory(event);
 }
 
 function resetCalculator() {
